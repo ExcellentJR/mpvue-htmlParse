@@ -4,15 +4,14 @@
     <div v-if="isPreview" class="preview-wrap">
       <img src="http://www.86y.org/images/loading.gif"/>
     </div>
-    <div v-if="!isPreview">
-      <img 
-        class="html-parse__img" 
-        @tap="htmlParseImageTab(item.attr && item.attr.src)"
-        @load="htmlParseImageLoad"
-        :id="item.attr && item.attr.src"
-        :src="item.attr && item.attr.src"
-        :style="htmlParseImageStyle"/>
-    </div>
+    <img 
+      v-else
+      class="html-parse__img" 
+      @tap="htmlParseImageTab(item.attr && item.attr.src)"
+      @load="htmlParseImageLoad"
+      :id="item.attr && item.attr.src"
+      :src="item.attr && item.attr.src"
+      :style="htmlParseImageStyle"/>
   </div>
 </template>
 <script>
@@ -44,6 +43,7 @@ export default {
     htmlParseImageLoad (e) { // 富文图片满屏适配
       const { mp } = e;
       const { currentTarget } = e;
+      console.log('图片加载完成');
       setTimeout(() => {
         const imgW = mp.detail.width;
         const imgH = mp.detail.height;
@@ -54,6 +54,7 @@ export default {
         } else {
           imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
         }
+        this.isPreview = false;
         this.htmlParseImageStyle = imageStyle;
         if (!this.$root.htmlParseImageUrl) {
           this.$root.htmlParseImageUrl = [];
@@ -72,9 +73,9 @@ export default {
       dp = winWidth / 750;
     }
     this.dp = dp;
-    setTimeout(() => {
-      this.isPreview = false;
-    }, 1000);
+    // setTimeout(() => {
+    //   this.isPreview = false;
+    // }, 1000);
   }
 };
 </script>
