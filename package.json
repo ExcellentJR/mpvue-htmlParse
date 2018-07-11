@@ -12,9 +12,10 @@
   },
   "keywords": [
     "mpvue",
-    "html parse"
+    "html parse",
+    "richtext"
   ],
-  "author": "suini_a@163.com",
+  "author": "1024689225@qq.com,suini_a@163.com",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/suinia/mpvue-htmlParse/issues"

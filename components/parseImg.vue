@@ -41,7 +41,6 @@ export default {
     htmlParseImageLoad (e) { // 富文图片满屏适配
       const { mp } = e;
       const { currentTarget } = e;
-      console.log('图片加载完成');
       setTimeout(() => {
         const imgW = mp.detail.width;
         const imgH = mp.detail.height;
@@ -71,9 +70,6 @@ export default {
       dp = winWidth / 750;
     }
     this.dp = dp;
-    // setTimeout(() => {
-    //   this.isPreview = false;
-    // }, 1000);
   }
 };
 </script>
