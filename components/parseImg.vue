@@ -17,7 +17,7 @@ export default {
   data () {
     return {
       // isPreview: true,
-      htmlParseImageStyle: '',
+      htmlParseImageStyle: 'width: 400rpx;height: 300rpx;',
       url: 'http://www.86y.org/images/loading.gif'
     };
   },
