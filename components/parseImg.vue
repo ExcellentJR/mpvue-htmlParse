@@ -44,8 +44,6 @@ export default {
     htmlParseImageLoad (e) { // 富文图片满屏适配
       const { mp } = e;
       const { currentTarget } = e;
-      this.isPreview = false;
-      console.log(this.isPreview);
       setTimeout(() => {
         const imgW = mp.detail.width;
         const imgH = mp.detail.height;
@@ -74,14 +72,9 @@ export default {
       dp = winWidth / 750;
     }
     this.dp = dp;
-    // setTimeout(() => {
-    //   this.isPreview = false;
-    // }, 1000);
-    // let newImg = new Image()
-    // newImg.src = this.item.attr && this.item.attr.src
-    // newImg.onload = () => { // 图片加载成功后把地址给原来的img
-    //   this.url = newImg.src
-    // }
+    setTimeout(() => {
+      this.isPreview = false;
+    }, 1000);
   }
 };
 </script>
