@@ -1,13 +1,16 @@
 <!--图片模板-->
 <template>
   <div style="width: 100%;height: auto;display: flex;justify-content: center;">
-    <!-- <div v-if="isPreview" class="preview-wrap">加载中...</div> -->
+    <div v-if="isPreview" class="preview-wrap">
+      <img src="http://www.86y.org/images/loading.gif"/>
+    </div>
     <img 
+      v-else
       class="html-parse__img" 
       @tap="htmlParseImageTab(item.attr && item.attr.src)"
       @load="htmlParseImageLoad"
       :id="item.attr && item.attr.src"
-      :src="url"
+      :src="item.attr && item.attr.src"
       :style="htmlParseImageStyle"/>
   </div>
 </template>
@@ -16,8 +19,8 @@ export default {
   name: 'parseImg',
   data () {
     return {
-      // isPreview: true,
-      htmlParseImageStyle: 'width: 400rpx;height: 300rpx;',
+      isPreview: true,
+      htmlParseImageStyle: '',
       url: 'http://www.86y.org/images/loading.gif'
     };
   },
@@ -51,7 +54,8 @@ export default {
           imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
         }
         this.htmlParseImageStyle = imageStyle;
-        this.url = this.item.attr && this.item.attr.src;
+        // this.url = this.item.attr && this.item.attr.src;
+        this.isPreview = false;
         if (!this.$root.htmlParseImageUrl) {
           this.$root.htmlParseImageUrl = [];
         }
