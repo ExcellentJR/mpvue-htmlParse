@@ -4,14 +4,15 @@
     <div v-if="isPreview" class="preview-wrap">
       <img src="http://www.86y.org/images/loading.gif"/>
     </div>
-    <img 
-      v-else
-      class="html-parse__img" 
-      @tap="htmlParseImageTab(item.attr && item.attr.src)"
-      @load="htmlParseImageLoad"
-      :id="item.attr && item.attr.src"
-      :src="item.attr && item.attr.src"
-      :style="htmlParseImageStyle"/>
+    <div v-else>
+      <img 
+        class="html-parse__img" 
+        @tap="htmlParseImageTab(item.attr && item.attr.src)"
+        @load="htmlParseImageLoad"
+        :id="item.attr && item.attr.src"
+        :src="item.attr && item.attr.src"
+        :style="htmlParseImageStyle"/>
+    </div>
   </div>
 </template>
 <script>
@@ -41,6 +42,7 @@ export default {
       });
     },
     htmlParseImageLoad (e) { // 富文图片满屏适配
+      const that = this;
       const { mp } = e;
       const { currentTarget } = e;
       setTimeout(() => {
@@ -55,7 +57,7 @@ export default {
         }
         this.htmlParseImageStyle = imageStyle;
         // this.url = this.item.attr && this.item.attr.src;
-        this.isPreview = false;
+        that.isPreview = false;
         if (!this.$root.htmlParseImageUrl) {
           this.$root.htmlParseImageUrl = [];
         }
@@ -95,4 +97,8 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.preview-wrap img {
+    width: 60rpx;
+    height: 60rpx;
+  }
 </style>
