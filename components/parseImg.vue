@@ -1,14 +1,13 @@
 <!--图片模板-->
 <template>
   <div style="width: 100%;height: auto;display: flex;justify-content: center;">
-    <div v-if="isPreview" class="preview-wrap">加载中...</div>
+    <!-- <div v-if="isPreview" class="preview-wrap">加载中...</div> -->
     <img 
-      v-else
       class="html-parse__img" 
       @tap="htmlParseImageTab(item.attr && item.attr.src)"
       @load="htmlParseImageLoad"
       :id="item.attr && item.attr.src"
-      :src="item.attr && item.attr.src"
+      :src="url"
       :style="htmlParseImageStyle"/>
   </div>
 </template>
@@ -17,8 +16,9 @@ export default {
   name: 'parseImg',
   data () {
     return {
-      isPreview: true,
-      htmlParseImageStyle: ''
+      // isPreview: true,
+      htmlParseImageStyle: '',
+      url: 'http://www.86y.org/images/loading.gif'
     };
   },
   props: {
@@ -68,9 +68,14 @@ export default {
       dp = winWidth / 750;
     }
     this.dp = dp;
-    setTimeout(() => {
-      this.isPreview = false;
-    }, 1000);
+    // setTimeout(() => {
+    //   this.isPreview = false;
+    // }, 1000);
+    let newImg = new Image()
+    newImg.src = this.item.attr && this.item.attr.src
+    newImg.onload = () => { // 图片加载成功后把地址给原来的img
+      this.url = newImg.src
+    }
   }
 };
 </script>
