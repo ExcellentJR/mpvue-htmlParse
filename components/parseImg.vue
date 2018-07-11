@@ -51,6 +51,7 @@ export default {
           imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
         }
         this.htmlParseImageStyle = imageStyle;
+        this.url = this.item.attr && this.item.attr.src;
         if (!this.$root.htmlParseImageUrl) {
           this.$root.htmlParseImageUrl = [];
         }
@@ -71,11 +72,11 @@ export default {
     // setTimeout(() => {
     //   this.isPreview = false;
     // }, 1000);
-    let newImg = new Image()
-    newImg.src = this.item.attr && this.item.attr.src
-    newImg.onload = () => { // 图片加载成功后把地址给原来的img
-      this.url = newImg.src
-    }
+    // let newImg = new Image()
+    // newImg.src = this.item.attr && this.item.attr.src
+    // newImg.onload = () => { // 图片加载成功后把地址给原来的img
+    //   this.url = newImg.src
+    // }
   }
 };
 </script>
