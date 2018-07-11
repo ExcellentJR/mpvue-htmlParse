@@ -45,6 +45,7 @@ export default {
       const that = this;
       const { mp } = e;
       const { currentTarget } = e;
+      that.isPreview = false;
       setTimeout(() => {
         const imgW = mp.detail.width;
         const imgH = mp.detail.height;
@@ -57,7 +58,6 @@ export default {
         }
         this.htmlParseImageStyle = imageStyle;
         // this.url = this.item.attr && this.item.attr.src;
-        that.isPreview = false;
         if (!this.$root.htmlParseImageUrl) {
           this.$root.htmlParseImageUrl = [];
         }
