@@ -1,7 +1,7 @@
 <!--图片模板-->
 <template>
-  <div style="width: 100%;height: auto;">
-    <div v-if="isPreview" class="preview-wrap" :style="htmlParseImageStyle">加载中...</div>
+  <div style="width: 100%;height: auto;display: flex;justify-content: center;">
+    <div v-if="isPreview" class="preview-wrap">加载中...</div>
     <img 
       v-else
       class="html-parse__img" 
@@ -40,10 +40,10 @@ export default {
     htmlParseImageLoad (e) { // 富文图片满屏适配
       const { mp } = e;
       const { currentTarget } = e;
-      const imgW = mp.detail.width;
-      const imgH = mp.detail.height;
-      const ratio = 690 / imgW;
       setTimeout(() => {
+        const imgW = mp.detail.width;
+        const imgH = mp.detail.height;
+        const ratio = 690 / imgW;
         let imageStyle;
         if (imgH / this.dp >= 690) {
           imageStyle = `width: 690rpx; height: ${imgH * ratio}rpx;`;
@@ -56,9 +56,6 @@ export default {
         }
         this.$root.htmlParseImageUrl.push(currentTarget.id);
       }, 0);
-      setTimeout(() => {
-        this.isPreview = false;
-      }, 1000);
     }
   },
   mounted () {
@@ -71,11 +68,16 @@ export default {
       dp = winWidth / 750;
     }
     this.dp = dp;
+    setTimeout(() => {
+      that.isPreview = false;
+    }, 1000);
   }
 };
 </script>
 <style scoped>
 .preview-wrap {
+  width: 400rpx;
+  height: 300rpx;
   background-color: #e5e5e5;
   color: #838383;
   font-size: 15px;

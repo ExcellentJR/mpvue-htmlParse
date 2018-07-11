@@ -1,6 +1,6 @@
 {
-  "name": "mpvue-htmlparse",
-  "version": "1.0.2",
+  "name": "mpvue-richtextparse",
+  "version": "1.0.0",
   "description": "mpvue 版小程序富文本适配",
   "main": "htmlParse.vue",
   "scripts": {
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/suinia/mpvue-htmlParse/issues"
   },
-  "homepage": "https://github.com/suinia/mpvue-htmlParse#readme"
+  "homepage": "https://github.com/suinia/mpvue-htmlParse#readme",
+  "directories": {
+    "lib": "lib"
+  }
 }

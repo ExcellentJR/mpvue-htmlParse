@@ -1,4 +1,4 @@
-# mpvue-htmlParse 微信小程序富文本解析 - mpvue版
+# mpvue-richtextParse 微信小程序富文本解析 - mpvue版
 
 > 目前只支持 node 数组，在后端或者传递值之前做 hmtl2json 处理
 > 
@@ -9,7 +9,7 @@
 
 1. 安装
 ``` bash
-npm i mpvue-htmlparse
+npm i mpvue-richtextparse
 ```
 
 2. 在 mpvue 中使用
@@ -17,17 +17,17 @@ npm i mpvue-htmlparse
 ``` vue
 <template>
   <div>
-    <htmlParse :data="content"  />
-    <htmlParse :html="html"  />
+    <richtextParse :data="content"  />
+    <richtextParse :html="html"  />
   </div>
 </template>
 
 <script>
-import htmlParse from 'mpvue-htmlparse';
+import richtextParse from 'mpvue-richtextparse';
 
 export default {
   components: {
-    htmlParse
+    richtextParse
   },
   data () {
     return {
