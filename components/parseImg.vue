@@ -4,7 +4,7 @@
     <div v-if="isPreview" class="preview-wrap">
       <img src="http://www.86y.org/images/loading.gif"/>
     </div>
-    <div v-else>
+    <div v-if="!isPreview">
       <img 
         class="html-parse__img" 
         @tap="htmlParseImageTab(item.attr && item.attr.src)"
@@ -42,10 +42,10 @@ export default {
       });
     },
     htmlParseImageLoad (e) { // 富文图片满屏适配
-      const that = this;
       const { mp } = e;
       const { currentTarget } = e;
-      that.isPreview = false;
+      this.isPreview = false;
+      console.log(this.isPreview);
       setTimeout(() => {
         const imgW = mp.detail.width;
         const imgH = mp.detail.height;
@@ -57,7 +57,6 @@ export default {
           imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
         }
         this.htmlParseImageStyle = imageStyle;
-        // this.url = this.item.attr && this.item.attr.src;
         if (!this.$root.htmlParseImageUrl) {
           this.$root.htmlParseImageUrl = [];
         }
