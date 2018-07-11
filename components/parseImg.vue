@@ -5,7 +5,6 @@
       <img src="http://www.86y.org/images/loading.gif"/>
     </div>
     <img 
-      v-else
       class="html-parse__img" 
       @tap="htmlParseImageTab(item.attr && item.attr.src)"
       @load="htmlParseImageLoad"
@@ -20,8 +19,7 @@ export default {
   data () {
     return {
       isPreview: true,
-      htmlParseImageStyle: '',
-      url: 'http://www.86y.org/images/loading.gif'
+      htmlParseImageStyle: ''
     };
   },
   props: {
