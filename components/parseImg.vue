@@ -69,7 +69,7 @@ export default {
     }
     this.dp = dp;
     setTimeout(() => {
-      that.isPreview = false;
+      this.isPreview = false;
     }, 1000);
   }
 };
