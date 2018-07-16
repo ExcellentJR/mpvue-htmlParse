@@ -44,10 +44,10 @@ export default {
       setTimeout(() => {
         const imgW = mp.detail.width;
         const imgH = mp.detail.height;
-        const ratio = 690 / imgW;
+        const ratio = 750 / imgW;
         let imageStyle;
-        if (imgH / this.dp >= 690) {
-          imageStyle = `width: 690rpx; height: ${imgH * ratio}rpx;`;
+        if ((imgH / this.dp) === 750 || (imgH / this.dp) > 750) {
+          imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
         } else {
           imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
         }
@@ -85,7 +85,7 @@ export default {
   justify-content: center;
 }
 .preview-wrap img {
-    width: 60rpx;
-    height: 60rpx;
-  }
+  width: 60rpx;
+  height: 60rpx;
+}
 </style>
