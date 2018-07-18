@@ -1,6 +1,6 @@
 <!--图片模板-->
 <template>
-  <div style="width: 100%;height: auto;display: flex;justify-content: center;">
+  <div class="img-wrap">
     <div v-if="isPreview" class="preview-wrap">
       <img src="http://www.86y.org/images/loading.gif"/>
     </div>
@@ -29,6 +29,17 @@ export default {
     }
   },
   methods: {
+    getDp () {
+      let winWidth = null;
+      let dp = 1;
+      try {
+        winWidth = wx.getSystemInfoSync().windowWidth;
+      } catch (e) {};
+      if (winWidth) {
+        dp = winWidth / 750;
+      }
+      this.dp = dp;
+    },
     htmlParseImageTab (url) { // 富文图片点击预览
       if (!url) {
         return false;
@@ -67,19 +78,17 @@ export default {
     }
   },
   mounted () {
-    let winWidth = null;
-    let dp = 1;
-    try {
-      winWidth = wx.getSystemInfoSync().windowWidth;
-    } catch (e) {};
-    if (winWidth) {
-      dp = winWidth / 750;
-    }
-    this.dp = dp;
+    this.getDp();
   }
 };
 </script>
 <style scoped>
+.img-wrap {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
 .preview-wrap {
   width: 640rpx;
   height: 400rpx;
