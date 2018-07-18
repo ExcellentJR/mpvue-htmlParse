@@ -39,7 +39,6 @@ export default {
       });
     },
     htmlParseImageLoad (e) { // 富文图片满屏适配
-      console.log(e)
       const { mp } = e;
       const { currentTarget } = e;
       setTimeout(() => {
@@ -47,11 +46,16 @@ export default {
         const imgH = mp.detail.height;
         const ratio = 750 / imgW;
         let imageStyle;
-        if ((imgH / this.dp) === 750 || (imgH / this.dp) > 750) {
+        if ((imgW / this.dp) > 750) {
           imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
         } else {
-          imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
+          imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
         }
+        // if ((imgH / this.dp) === 750 || (imgH / this.dp) > 750) {
+        //   imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
+        // } else {
+        //   imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
+        // }
         this.isPreview = false;
         this.htmlParseImageStyle = imageStyle;
         if (!this.$root.htmlParseImageUrl) {
