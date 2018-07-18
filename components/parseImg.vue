@@ -49,7 +49,8 @@ export default {
         if ((imgW / this.dp) > 750) {
           imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
         } else {
-          imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
+          // imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
+          imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
         }
         // if ((imgH / this.dp) === 750 || (imgH / this.dp) > 750) {
         //   imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
