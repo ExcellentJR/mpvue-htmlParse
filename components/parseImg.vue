@@ -84,7 +84,8 @@ export default {
     const that = this;
     that.getDp();
     // 懒加载
-    wx.createIntersectionObserver().relativeToViewport({bottom: 100}).observe('.img-wrap', (res) => {
+    let intersectionObserver = wx.createIntersectionObserver();
+    intersectionObserver.relativeToViewport({bottom: 100}).observe('.img-wrap', (res) => {
       console.log('我快要出来了！')
       if (res.boundingClientRect.top > 0) {
         intersectionObserver.disconnect()
