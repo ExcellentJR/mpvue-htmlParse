@@ -39,6 +39,7 @@ export default {
       });
     },
     htmlParseImageLoad (e) { // 富文图片满屏适配
+      console.log(e)
       const { mp } = e;
       const { currentTarget } = e;
       setTimeout(() => {
