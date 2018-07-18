@@ -1,6 +1,6 @@
 {
   "name": "mpvue-richtextparse",
-  "version": "1.0.19",
+  "version": "1.0.20",
   "description": "mpvue 版小程序富文本适配",
   "main": "htmlParse.vue",
   "scripts": {

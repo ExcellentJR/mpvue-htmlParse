@@ -1,10 +1,12 @@
 <!--图片模板-->
 <template>
   <div style="width: 100%;height: auto;display: flex;justify-content: center;">
-    <div v-if="isPreview" class="preview-wrap">
+    <div v-if="!willInViewport" class="preview-static-wrap"></div>
+    <div v-else-if="willInViewport&&isPreview" class="preview-wrap">
       <img src="http://www.86y.org/images/loading.gif"/>
     </div>
     <img 
+      v-if="willInViewport"
       class="html-parse__img" 
       @tap="htmlParseImageTab(item.attr && item.attr.src)"
       @load="htmlParseImageLoad"
@@ -18,7 +20,8 @@ export default {
   name: 'parseImg',
   data () {
     return {
-      isPreview: true,
+      willInViewport: false,
+      isPreview: false,
       htmlParseImageStyle: ''
     };
   },
@@ -29,6 +32,17 @@ export default {
     }
   },
   methods: {
+    getDp () {
+      let winWidth = null;
+      let dp = 1;
+      try {
+        winWidth = wx.getSystemInfoSync().windowWidth;
+      } catch (e) {};
+      if (winWidth) {
+        dp = winWidth / 750;
+      }
+      this.dp = dp;
+    },
     htmlParseImageTab (url) { // 富文图片点击预览
       if (!url) {
         return false;
@@ -67,19 +81,26 @@ export default {
     }
   },
   mounted () {
-    let winWidth = null;
-    let dp = 1;
-    try {
-      winWidth = wx.getSystemInfoSync().windowWidth;
-    } catch (e) {};
-    if (winWidth) {
-      dp = winWidth / 750;
-    }
-    this.dp = dp;
+    const that = this;
+    that.getDp();
+    // 懒加载
+    wx.createIntersectionObserver().relativeToViewport({bottom: 100}).observe('.html-parse__img', (res) => {
+      console.log('我快要出来了！')
+      if (res.boundingClientRect.top > 0) {
+        intersectionObserver.disconnect()
+        that.willInViewport = true
+        that.isPreview = true
+      }
+    })
   }
 };
 </script>
 <style scoped>
+.preview-static-wrap {
+  width: 640rpx;
+  height: 400rpx;
+  background-color: #f5f5f5;
+}
 .preview-wrap {
   width: 640rpx;
   height: 400rpx;
