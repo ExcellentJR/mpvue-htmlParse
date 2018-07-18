@@ -1,6 +1,6 @@
 <!--图片模板-->
 <template>
-  <div style="width: 100%;height: auto;display: flex;justify-content: center;">
+  <div class="img-wrap">
     <div v-if="!willInViewport" class="preview-static-wrap"></div>
     <div v-else-if="willInViewport&&isPreview" class="preview-wrap">
       <img src="http://www.86y.org/images/loading.gif"/>
@@ -84,7 +84,7 @@ export default {
     const that = this;
     that.getDp();
     // 懒加载
-    wx.createIntersectionObserver().relativeToViewport({bottom: 100}).observe('.html-parse__img', (res) => {
+    wx.createIntersectionObserver().relativeToViewport({bottom: 100}).observe('.img-wrap', (res) => {
       console.log('我快要出来了！')
       if (res.boundingClientRect.top > 0) {
         intersectionObserver.disconnect()
@@ -96,6 +96,12 @@ export default {
 };
 </script>
 <style scoped>
+.img-wrap {
+  width: 100%;
+  height: auto;
+  display: flex;
+  justify-content: center;
+}
 .preview-static-wrap {
   width: 640rpx;
   height: 400rpx;
