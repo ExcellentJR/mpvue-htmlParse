@@ -46,7 +46,7 @@ export default {
         const imgH = mp.detail.height;
         const ratio = 750 / imgW;
         let imageStyle;
-        if ((imgW / this.dp) > 750) {
+        if (imgW > 750) {
           imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
         } else {
           // imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
