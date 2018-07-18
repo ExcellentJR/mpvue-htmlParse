@@ -81,11 +81,9 @@ export default {
 </script>
 <style scoped>
 .preview-wrap {
-  width: 400rpx;
-  height: 300rpx;
-  background-color: #e5e5e5;
-  color: #838383;
-  font-size: 15px;
+  width: 640rpx;
+  height: 400rpx;
+  background-color: #f5f5f5;
   display: flex;
   align-items: center;
   justify-content: center;
