@@ -62,7 +62,7 @@ export default {
         // imgTypeGifIndex大于-1说明是gif，则处理其图片宽高为固定值
         if (imgTypeGifIndex > -1) {
           imageStyle = `width: 640rpx; height: ${imgH * (640 / imgW)}rpx;`;
-        } else if (imgTypeGifIndex > -1) {
+        } else {
           if (imgW > 750) {
             imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
           } else {
