@@ -1,7 +1,7 @@
 <!--图片模板-->
 <template>
   <div class="img-wrap">
-    <div v-if="isPreview" class="preview-wrap">
+    <div v-if="isPreview" class="preview-wrap" :style="{width: perfectWidth + 'rpx'}">
       <img src="http://www.86y.org/images/loading.gif"/>
     </div>
     <img 
@@ -19,7 +19,9 @@ export default {
   data () {
     return {
       isPreview: true,
-      htmlParseImageStyle: ''
+      htmlParseImageStyle: '',
+      winWidth: 375,
+      perfectWidth: 640
     };
   },
   props: {
@@ -30,15 +32,16 @@ export default {
   },
   methods: {
     getDp () {
-      let winWidth = null;
+      this.winWidth = null;
       let dp = 1;
       try {
-        winWidth = wx.getSystemInfoSync().windowWidth;
+        this.winWidth = wx.getSystemInfoSync().windowWidth;
       } catch (e) {};
-      if (winWidth) {
-        dp = winWidth / 750;
+      if (this.winWidth) {
+        dp = this.winWidth / 750;
       }
       this.dp = dp;
+      this.perfectWidth = (this.winWidth - 34) / this.dp;
     },
     htmlParseImageTab (url) { // 富文图片点击预览
       if (!url) {
@@ -57,18 +60,15 @@ export default {
         const imgW = mp.detail.width;
         const imgH = mp.detail.height;
         const imgTypeGifIndex = currentTarget.id.indexOf('wx_fmt=gif');
-        const ratio = 750 / imgW;
+        const ratio = (this.winWidth / this.dp) / imgW;
         let imageStyle;
         // imgTypeGifIndex大于-1说明是gif，则处理其图片宽高为固定值
-        if (imgTypeGifIndex > -1) {
-          imageStyle = `width: 640rpx; height: ${imgH * (640 / imgW)}rpx;`;
+        if (imgTypeGifIndex > -1 || imgW > 639) {
+          imageStyle = `width: ${this.perfectWidth}rpx; height: ${imgH * (this.perfectWidth / imgW)}rpx;`;
         } else {
-          if (imgW > 750) {
-            imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
-          } else {
-            // imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
-            imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
-          }
+          // if (imgW > (this.winWidth / this.dp)) {
+          // imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
+          imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
           // if ((imgH / this.dp) === 750 || (imgH / this.dp) > 750) {
           //   imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
           // } else {
