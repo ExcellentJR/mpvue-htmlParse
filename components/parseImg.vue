@@ -50,25 +50,31 @@ export default {
       });
     },
     htmlParseImageLoad (e) { // 富文图片满屏适配
-      console.log(e)
+      // console.log(e)
       const { mp } = e;
       const { currentTarget } = e;
       setTimeout(() => {
         const imgW = mp.detail.width;
         const imgH = mp.detail.height;
+        const imgTypeGifIndex = currentTarget.id.indexOf('wx_fmt=gif');
         const ratio = 750 / imgW;
         let imageStyle;
-        if (imgW > 750) {
-          imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
-        } else {
-          // imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
-          imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
+        // imgTypeGifIndex大于-1说明是gif，则处理其图片宽高为固定值
+        if (imgTypeGifIndex > -1) {
+          imageStyle = `width: 640rpx; height: ${imgH * (640 / imgW)}rpx;`;
+        } else if (imgTypeGifIndex > -1) {
+          if (imgW > 750) {
+            imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
+          } else {
+            // imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
+            imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
+          }
+          // if ((imgH / this.dp) === 750 || (imgH / this.dp) > 750) {
+          //   imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
+          // } else {
+          //   imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
+          // }
         }
-        // if ((imgH / this.dp) === 750 || (imgH / this.dp) > 750) {
-        //   imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
-        // } else {
-        //   imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
-        // }
         this.isPreview = false;
         this.htmlParseImageStyle = imageStyle;
         if (!this.$root.htmlParseImageUrl) {
