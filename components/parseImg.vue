@@ -66,14 +66,7 @@ export default {
         if (imgTypeGifIndex > -1 || imgW > 639) {
           imageStyle = `width: ${this.perfectWidth}rpx; height: ${imgH * (this.perfectWidth / imgW)}rpx;`;
         } else {
-          // if (imgW > (this.winWidth / this.dp)) {
-          // imageStyle = `width: ${imgW * this.dp}rpx; height: ${imgH * this.dp}rpx;`;
           imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
-          // if ((imgH / this.dp) === 750 || (imgH / this.dp) > 750) {
-          //   imageStyle = `width: 750rpx; height: ${imgH * ratio}rpx;`;
-          // } else {
-          //   imageStyle = `width: ${imgW * this.dp}px; height: ${imgH * this.dp}px;`;
-          // }
         }
         this.isPreview = false;
         this.htmlParseImageStyle = imageStyle;
@@ -81,6 +74,9 @@ export default {
           this.$root.htmlParseImageUrl = [];
         }
         this.$root.htmlParseImageUrl.push(currentTarget.id);
+        if (!this.$root.imgLoadTag) {
+          this.$root.imgLoadTag = true
+        }
       }, 0);
     }
   },
