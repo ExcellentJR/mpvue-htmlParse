@@ -1,10 +1,11 @@
 <!--图片模板-->
 <template>
   <div class="img-wrap">
-    <div v-if="isPreview" class="preview-wrap" :style="{width: perfectWidth + 'rpx'}">
+    <div v-if="isPreview" class="preview-wrap">
       <img src="http://www.86y.org/images/loading.gif"/>
     </div>
-    <img 
+    <image
+      lazy-load
       class="html-parse__img" 
       @tap="htmlParseImageTab(item.attr && item.attr.src)"
       @load="htmlParseImageLoad"
@@ -21,7 +22,7 @@ export default {
       isPreview: true,
       htmlParseImageStyle: '',
       winWidth: 375,
-      perfectWidth: 640
+      perfectWidth: 682
     };
   },
   props: {
@@ -68,19 +69,18 @@ export default {
         } else {
           imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
         }
-        this.isPreview = false;
         this.htmlParseImageStyle = imageStyle;
+        this.isPreview = false;
         if (!this.$root.htmlParseImageUrl) {
           this.$root.htmlParseImageUrl = [];
         }
         this.$root.htmlParseImageUrl.push(currentTarget.id);
-        if (!this.$root.imgLoadTag) {
-          this.$root.imgLoadTag = true
-        }
       }, 0);
     }
   },
   mounted () {
+    // 关闭主容器内的loading
+    this.$root.loading = false
     this.getDp();
   }
 };
@@ -93,7 +93,7 @@ export default {
   justify-content: center;
 }
 .preview-wrap {
-  width: 640rpx;
+  width: 682rpx;
   height: 400rpx;
   background-color: #f5f5f5;
   display: flex;
