@@ -1,8 +1,10 @@
 <template>
   <div>
-    <block v-if="nodeList && nodeList.length" v-for="(item, index) in nodeList" :key="index">
-      <htmlParse :item="item" />
-    </block>
+    <template v-if="nodeList && nodeList.length">
+      <block v-for="(item, index) in nodeList" :key="index">
+        <htmlParse :item="item" />
+      </block>
+    </template>
   </div>
 </template>
 

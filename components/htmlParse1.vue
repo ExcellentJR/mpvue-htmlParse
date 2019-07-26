@@ -25,7 +25,8 @@
     </block>
     <!--其他节点-->
     <div v-else :class="'html-parse__element html-parse__' + item.tag" :style="item.attr && item.attr.style">
-      <block v-for="(item, index) in item.child" :key="item.tag + index">
+      <!-- <block v-for="(item, index) in item.child" :key="item.tag + index"> -->
+      <block v-for="(item, index) in item.child" :key="index">
         <htmlParse :item="item" />
       </block>
     </div>
