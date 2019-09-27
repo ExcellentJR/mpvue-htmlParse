@@ -22,7 +22,8 @@ export default {
       isPreview: true,
       htmlParseImageStyle: '',
       winWidth: 375,
-      perfectWidth: 682
+      perfectWidth: 682,
+      imgPadding: 34
     };
   },
   props: {
@@ -42,7 +43,7 @@ export default {
         dp = this.winWidth / 750;
       }
       this.dp = dp;
-      this.perfectWidth = (this.winWidth - 34) / this.dp;
+      this.perfectWidth = (this.winWidth - this.imgPadding) / this.dp;
     },
     htmlParseImageTab (url) { // 富文图片点击预览
       if (!url) {
@@ -55,32 +56,37 @@ export default {
     },
     htmlParseImageLoad (e) { // 富文图片满屏适配
       // console.log(e)
+      const that = this
       const { mp } = e;
       const { currentTarget } = e;
+      const imgW = mp.detail.width;
+      const imgH = mp.detail.height;
+      const isGif = currentTarget.id.includes('wx_fmt=gif');
+      let imageStyle = ``;
       setTimeout(() => {
-        const imgW = mp.detail.width;
-        const imgH = mp.detail.height;
-        const imgTypeGifIndex = currentTarget.id.indexOf('wx_fmt=gif');
-        const ratio = (this.winWidth / this.dp) / imgW;
-        let imageStyle;
-        // imgTypeGifIndex大于-1说明是gif，则处理其图片宽高为固定值
-        if (imgTypeGifIndex > -1 || imgW > 639) {
-          imageStyle = `width: ${this.perfectWidth}rpx; height: ${imgH * (this.perfectWidth / imgW)}rpx;`;
+        // isGif为true说明是gif，则处理其图片宽高为固定值
+        if (isGif || imgW > 639) {
+          imageStyle = `width: ${that.perfectWidth}rpx; height: ${imgH * (that.perfectWidth / imgW)}rpx;`;
         } else {
           imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
         }
-        this.htmlParseImageStyle = imageStyle;
-        this.isPreview = false;
-        if (!this.$root.htmlParseImageUrl) {
-          this.$root.htmlParseImageUrl = [];
+        that.htmlParseImageStyle = imageStyle;
+        that.isPreview = false;
+        if (!that.$root.htmlParseImageUrl) {
+          that.$root.htmlParseImageUrl = [];
         }
-        this.$root.htmlParseImageUrl.push(currentTarget.id);
+        that.$root.htmlParseImageUrl.push(currentTarget.id);
       }, 0);
     }
   },
   mounted () {
     // 关闭主容器内的loading
     this.$root.loading = false
+    if (this.$root.hasOwnProperty('htmlParseImagePadding')) {
+      this.imgPadding = this.$root.htmlParseImagePadding
+    } else {
+      this.imgPadding = 34
+    }
     this.getDp();
   }
 };
