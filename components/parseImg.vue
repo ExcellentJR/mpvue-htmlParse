@@ -43,7 +43,11 @@ export default {
       this.winWidth = null;
       let dp = 1;
       try {
-        this.winWidth = wx.getSystemInfoSync().windowWidth;
+        if (wx) {
+          this.winWidth = wx.getSystemInfoSync().windowWidth;
+        } else {
+          this.winWidth = uni.getSystemInfoSync().windowWidth;
+        }
       } catch (e) {};
       if (this.winWidth) {
         dp = this.winWidth / 750;
@@ -55,10 +59,17 @@ export default {
       if (!url) {
         return false;
       }
-      wx.previewImage({
-        current: url, // 当前显示图片的http链接
-        urls: this.$root.htmlParseImageUrl // 需要预览的图片http链接列表
-      });
+      if (wx) {
+        wx.previewImage({
+          current: url, // 当前显示图片的http链接
+          urls: this.$root.htmlParseImageUrl // 需要预览的图片http链接列表
+        });
+      } else {
+        uni.previewImage({
+          current: url, // 当前显示图片的http链接
+          urls: this.$root.htmlParseImageUrl // 需要预览的图片http链接列表
+        });
+      }
     },
     htmlParseImageLoad (e) { // 富文图片满屏适配
       // console.log(e)
@@ -107,7 +118,7 @@ export default {
   mounted () {
     // 关闭主容器内的loading
     if (this.$root.loading) this.$root.loading = false
-    if (this.$root.hasOwnProperty('htmlParseImagePadding')) {
+    if (this.$root.htmlParseImagePadding) {
       this.imgPadding = this.$root.htmlParseImagePadding
     } else {
       this.imgPadding = 34
