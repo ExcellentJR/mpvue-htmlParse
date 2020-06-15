@@ -104,7 +104,7 @@ export default {
           }
         }
         that.htmlParseImageStyle = imageStyle;
-        that.previewWrapStyle = `${imageStyle}background-color: none;`;
+        that.previewWrapStyle = `${imageStyle}background: none;`;
         if (!that.$root.htmlParseImageUrl) {
           that.$root.htmlParseImageUrl = [];
         }
