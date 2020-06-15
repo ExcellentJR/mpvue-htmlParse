@@ -1,7 +1,7 @@
 <!--图片模板-->
 <template>
   <scroll-view class="img-wrap" enable-flex :scroll-x="isScroll" :style="{height: containerHeight}">
-    <div class="preview-wrap" :style="htmlParseImageStyle">
+    <div class="preview-wrap" :style="previewWrapStyle">
       <div v-if="isDisplay" class="loading-wrap" :class="[isPreview?'':'img-hide']" :style="htmlParseImageStyle">
         <image class="loading-img" src="http://www.86y.org/images/loading.gif"/>
       </div>
@@ -25,6 +25,7 @@ export default {
       isPreview: true,
       isDisplay: true,
       htmlParseImageStyle: 'width: calc(100vw - 68rpx); height: 332rpx;',
+      previewWrapStyle: 'width: calc(100vw - 68rpx); height: 332rpx;',
       winWidth: 375,
       perfectWidth: 682,
       imgPadding: 34,
@@ -103,6 +104,7 @@ export default {
           }
         }
         that.htmlParseImageStyle = imageStyle;
+        that.previewWrapStyle = `${imageStyle}background: none;`;
         if (!that.$root.htmlParseImageUrl) {
           that.$root.htmlParseImageUrl = [];
         }
