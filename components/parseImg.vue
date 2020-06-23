@@ -1,6 +1,6 @@
 <!--图片模板-->
 <template>
-  <scroll-view class="img-wrap" enable-flex :scroll-x="isScroll" :style="{height: containerHeight}">
+  <scroll-view class="img-wrap" enable-flex :scroll-x="isScroll" :style="{height: containerHeight, justifyContent: isScroll?'flex-start':'center'}">
     <div class="preview-wrap" :style="previewWrapStyle">
       <div v-if="isDisplay" class="loading-wrap" :class="[isPreview?'':'img-hide']" :style="htmlParseImageStyle">
         <image class="loading-img" src="http://www.86y.org/images/loading.gif"/>
