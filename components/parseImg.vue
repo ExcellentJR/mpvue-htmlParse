@@ -2,7 +2,7 @@
 <template>
   <scroll-view class="img-wrap" enable-flex :scroll-x="isScroll" :style="{height: containerHeight, justifyContent: isScroll?'flex-start':'center'}">
     <div class="preview-wrap" :style="previewWrapStyle">
-      <div v-if="isDisplay" class="loading-wrap" :class="[isPreview?'':'img-hide']" :style="htmlParseImageStyle">
+      <div v-if="isDisplay" class="loading-wrap" :class="[isPreview?'':(isShowImgHideAnimation?'img-hide':'')]" :style="htmlParseImageStyle">
         <image class="loading-img" src="http://www.86y.org/images/loading.gif"/>
       </div>
       <image
@@ -130,6 +130,11 @@ export default {
       this.imgScrollWidth = this.$root.htmlParseImageScrollWidth
     } else {
       this.imgScrollWidth = 1000
+    }
+    if (this.$root.hasOwnProperty('isShowImgHideAnimation')) {
+      this.isShowImgHideAnimation = this.$root.isShowImgHideAnimation
+    } else {
+      this.isShowImgHideAnimation = false
     }
     this.getDp();
   }
