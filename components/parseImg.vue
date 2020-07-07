@@ -1,8 +1,8 @@
 <!--图片模板-->
 <template>
-  <scroll-view class="img-wrap" enable-flex :scroll-x="isScroll" :style="{height: containerHeight}">
+  <scroll-view class="img-wrap" enable-flex :scroll-x="isScroll" :style="{height: containerHeight, justifyContent: isScroll?'flex-start':'center'}">
     <div class="preview-wrap" :style="previewWrapStyle">
-      <div v-if="isDisplay" class="loading-wrap" :class="[isPreview?'':'img-hide']" :style="htmlParseImageStyle">
+      <div v-if="isDisplay" class="loading-wrap" :class="[isPreview?'':(isShowImgHideAnimation?'img-hide':'')]" :style="htmlParseImageStyle">
         <image class="loading-img" src="http://www.86y.org/images/loading.gif"/>
       </div>
       <image
@@ -29,6 +29,7 @@ export default {
       winWidth: 375,
       perfectWidth: 682,
       imgPadding: 34,
+      imgScrollWidth: 1000,
       containerHeight: '332rpx',
       isScroll: false
     };
@@ -80,7 +81,7 @@ export default {
       const { currentTarget } = e;
       const imgW = mp.detail.width;
       const imgH = mp.detail.height;
-      const isGif = currentTarget.id.includes('wx_fmt=gif');
+      const isGif = currentTarget.id.includes('wx_fmt=gif') || currentTarget.id.includes('.gif');
       let imageStyle = ``;
       let timeid = setTimeout(() => {
         // 有padding和无padding分开处理
@@ -94,7 +95,7 @@ export default {
             that.containerHeight = `${imgH}rpx`;
           }
         } else {
-          if (imgW > 1000) {
+          if (imgW > that.imgScrollWidth) {
             imageStyle = `width: ${imgW}rpx; height: ${imgH}rpx;`;
             that.containerHeight = `${imgH}rpx`;
             that.isScroll = true;
@@ -120,10 +121,20 @@ export default {
   mounted () {
     // 关闭主容器内的loading
     if (this.$root.loading) this.$root.loading = false
-    if (this.$root.htmlParseImagePadding) {
+    if (this.$root.hasOwnProperty('htmlParseImagePadding')) {
       this.imgPadding = this.$root.htmlParseImagePadding
     } else {
       this.imgPadding = 34
+    }
+    if (this.$root.hasOwnProperty('htmlParseImageScrollWidth')) {
+      this.imgScrollWidth = this.$root.htmlParseImageScrollWidth
+    } else {
+      this.imgScrollWidth = 1000
+    }
+    if (this.$root.hasOwnProperty('isShowImgHideAnimation')) {
+      this.isShowImgHideAnimation = this.$root.isShowImgHideAnimation
+    } else {
+      this.isShowImgHideAnimation = false
     }
     this.getDp();
   }
