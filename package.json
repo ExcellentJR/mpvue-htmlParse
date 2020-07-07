@@ -1,6 +1,6 @@
 {
   "name": "mpvue-richtextparse",
-  "version": "1.1.2",
+  "version": "1.1.5",
   "description": "mpvue/uni-app 小程序富文本适配",
   "main": "htmlParse.vue",
   "scripts": {
