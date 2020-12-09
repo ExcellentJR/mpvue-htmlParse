@@ -57,10 +57,11 @@ export default {
       this.dp = dp;
       this.perfectWidth = (this.winWidth - this.imgPadding) / this.dp;
     },
-    previewImage (url) { // 富文图片点击预览
-      if (!url) {
-        return false;
-      }
+    // 富文图片点击预览
+    previewImage (url) { 
+      // 如果不允许预览则不预览
+      if (this.disablePreviewImg) return false;
+      if (!url) return false;
       if (wx) {
         wx.previewImage({
           current: url, // 当前显示图片的http链接
@@ -135,6 +136,11 @@ export default {
       this.isShowImgHideAnimation = this.$root.isShowImgHideAnimation
     } else {
       this.isShowImgHideAnimation = false
+    }
+    if (this.$root.hasOwnProperty('disablePreviewImg')) {
+      this.disablePreviewImg = this.$root.disablePreviewImg
+    } else {
+      this.disablePreviewImg = false
     }
     this.getDp();
   }
