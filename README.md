@@ -36,7 +36,8 @@ export default {
       content: [...nodeList],
       htmlParseImagePadding: 0, // 解析图片时，图片的内边距大小，默认为34rpx
       htmlParseImageScrollWidth: 1500, // 当图片宽度大于该值时，图片将可以横向滚动，默认1000
-      isShowImgHideAnimation: false // 是否显示图片loading效果隐藏的动画，默认false
+      isShowImgHideAnimation: false, // 是否显示图片loading效果隐藏的动画，默认false
+      disablePreviewImg: false // 是否允许预览图片，默认允许
     }
   }
 }
